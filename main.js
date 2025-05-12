@@ -58,6 +58,8 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             del_btn.innerText = "X"
             del_btn.classList.add("btn")
             del_btn.classList.add("btn-danger")
+            del_btn.classList.add("py-2")
+            del_btn.classList.add("px-3")
 
             // delete a task
             del_btn.addEventListener("click", () => {
@@ -87,10 +89,15 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             span.classList.add("px-3");
 
             let update_btn = document.createElement("button")
-            update_btn.innerText = "O"
             update_btn.classList.add("btn")
             update_btn.classList.add("btn-success")
             update_btn.classList.add("mx-1")
+
+            let update_icon = document.createElement("span")
+            update_icon.classList.add("material-symbols-outlined")
+            update_icon.innerText = "edit"
+
+            update_btn.appendChild(update_icon)
 
             update_btn.addEventListener("click", () => {
 
@@ -103,7 +110,7 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
                 text_input.addEventListener("keypress", (e) => {
 
                     if (e.key == "Enter"){
-                        
+
                         let date = new Date()
                         let date_text = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 

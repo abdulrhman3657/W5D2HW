@@ -79,10 +79,6 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
                 })
             })
 
-
-            check_div.appendChild(checkbox)
-            check_div.appendChild(checkbox_inner_div)
-
             counter.innerText = data.length
 
             let span = document.createElement("span")
@@ -90,9 +86,57 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             span.style.color = "grey"
             span.classList.add("px-3");
 
+            let update_btn = document.createElement("button")
+            update_btn.innerText = "O"
+            update_btn.classList.add("btn")
+            update_btn.classList.add("btn-success")
+            update_btn.classList.add("mx-1")
+
+            update_btn.addEventListener("click", () => {
+
+                checkbox_inner_div.innerText = "" 
+
+                let text_input = document.createElement("input");
+                text_input.classList.add("form-control")
+                text_input.value = element.text;
+
+                text_input.addEventListener("keypress", (e) => {
+
+                    if (e.key == "Enter"){
+                        
+                        let date = new Date()
+                        let date_text = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+
+                        fetch(`https://682199fa259dad2655afc100.mockapi.io/tasks/${element.id}`, {
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                id: element.id,
+                                text: text_input.value,
+                                time: date_text
+                            }),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })
+                        .then(() => {
+                            location.reload();
+                        })
+                    }
+                })
+
+                checkbox_inner_div.appendChild(text_input)
+
+            })
+
             let date_box = document.createElement("div")
+
+            check_div.appendChild(checkbox)
+            check_div.appendChild(checkbox_inner_div)
+
             date_box.appendChild(span)
+            date_box.appendChild(update_btn)
             date_box.appendChild(del_btn)
+
             date_box.classList.add("d-flex");
             date_box.classList.add("align-items-center");
             

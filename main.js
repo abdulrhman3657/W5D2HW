@@ -52,7 +52,7 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             new_task.classList.add("d-flex");
             new_task.classList.add("align-items-center");
             new_task.classList.add("justify-content-between");
-            new_task.classList.add("flex-wrap");
+            // new_task.classList.add("flex-wrap");
             
             let del_btn = document.createElement("button")
             del_btn.innerText = "X"

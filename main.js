@@ -2,6 +2,8 @@ let add_btn = document.getElementById("add-btn")
 let task = document.getElementById("task")
 let tasks_list = document.getElementById("tasks-list")
 let err_msg = document.getElementById("err-msg")
+let counter = document.getElementById("counter")
+let delete_all_btn = document.getElementById("delete_all_btn")
 
 
 // get the data
@@ -9,9 +11,40 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
       .then(response => response.json())
       .then(data => {
 
+        localStorage.setItem("task_list", JSON.stringify(data))
+
+        let localStorage_list = JSON.parse(localStorage.getItem("task_list"))
+
+        // localStorage_list.forEach((element) => {
+        //     console.log(element)
+        // })
+
+
         data.forEach(element => {
+
             let new_task = document.createElement("li")
-            new_task.innerText = element.text
+
+            let check_div = document.createElement("div")
+            check_div.classList.add("d-flex");
+            check_div.classList.add("align-items-center");
+            check_div.classList.add("justify-content-center");
+
+            let checkbox = document.createElement("input");
+            checkbox.style.border = "1px solid";
+            checkbox.classList.add("form-check-input");
+            checkbox.type = "checkbox";
+
+            let checkbox_inner_div = document.createElement("div");
+            checkbox_inner_div.classList.add("px-2");
+            checkbox_inner_div.innerText = element.text;
+
+            checkbox.addEventListener('click', () => {
+                if(checkbox.checked){
+                    checkbox_inner_div.style.textDecoration = "line-through"
+                } else {
+                    checkbox_inner_div.style.textDecoration = "none"
+                }
+            })
 
             new_task.classList.add("list-group-item");
             new_task.classList.add("my-1");
@@ -21,7 +54,6 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             new_task.classList.add("justify-content-between");
             new_task.classList.add("flex-wrap");
             
-
             let del_btn = document.createElement("button")
             del_btn.innerText = "X"
             del_btn.classList.add("btn")
@@ -36,6 +68,23 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
                 })
             })
 
+            // delete all tasks
+            delete_all_btn.addEventListener("click", () => {
+                data.forEach(element => {
+                    fetch(`https://682199fa259dad2655afc100.mockapi.io/tasks/${element.id}`, {
+                        method: 'DELETE',
+                    }).then(() => {
+                        location.reload()
+                    })
+                })
+            })
+
+
+            check_div.appendChild(checkbox)
+            check_div.appendChild(checkbox_inner_div)
+
+            counter.innerText = data.length
+
             let span = document.createElement("span")
             span.innerText = element.time
             span.style.color = "grey"
@@ -46,10 +95,10 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             date_box.appendChild(del_btn)
             date_box.classList.add("d-flex");
             date_box.classList.add("align-items-center");
+            
+            new_task.appendChild(check_div)
 
             new_task.appendChild(date_box)
-            // new_task.appendChild(span)
-            // new_task.appendChild(del_btn)
             tasks_list.appendChild(new_task)
         });
 })
@@ -66,7 +115,7 @@ add_btn.addEventListener("click", () => {
     }
 
     let date = new Date()
-    let date_text = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    let date_text = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
     
     // post a new task
     fetch('https://682199fa259dad2655afc100.mockapi.io/tasks', {

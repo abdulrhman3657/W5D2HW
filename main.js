@@ -13,12 +13,7 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
 
         localStorage.setItem("task_list", JSON.stringify(data))
 
-        let localStorage_list = JSON.parse(localStorage.getItem("task_list"))
-
-        // localStorage_list.forEach((element) => {
-        //     console.log(element)
-        // })
-
+        JSON.parse(localStorage.getItem("task_list"))
 
         data.forEach(element => {
 
@@ -61,24 +56,54 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
             del_btn.classList.add("py-2")
             del_btn.classList.add("px-3")
 
+
+            let del_checker = false
+
             // delete a task
             del_btn.addEventListener("click", () => {
-                fetch(`https://682199fa259dad2655afc100.mockapi.io/tasks/${element.id}`, {
-                    method: 'DELETE',
-                }).then(() => {
-                    location.reload();
-                })
-            })
 
-            // delete all tasks
-            delete_all_btn.addEventListener("click", () => {
-                data.forEach(element => {
+                
+                if(!del_checker){
+                    err_msg.innerText = "are you sure you want to delete this task?"
+                }
+
+                
+
+                if(del_checker){
                     fetch(`https://682199fa259dad2655afc100.mockapi.io/tasks/${element.id}`, {
                         method: 'DELETE',
                     }).then(() => {
-                        location.reload()
+                        location.reload();
                     })
+                }
+
+                del_checker = true
+
+            })
+
+            let del_all_checker = false
+
+            // delete all tasks
+            delete_all_btn.addEventListener("click", () => {
+
+
+                if(!del_all_checker){
+                     err_msg.innerText = "are you sure you want to delete all the tasks?"
+                }
+
+
+                if(del_all_checker){
+                    data.forEach(element => {
+                        fetch(`https://682199fa259dad2655afc100.mockapi.io/tasks/${element.id}`, {
+                            method: 'DELETE',
+                        }).then(() => {
+                            location.reload()
+                        })
                 })
+                }
+
+                del_all_checker = true
+
             })
 
             counter.innerText = data.length
@@ -151,6 +176,10 @@ fetch('https://682199fa259dad2655afc100.mockapi.io/tasks')
 
             new_task.appendChild(date_box)
             tasks_list.appendChild(new_task)
+
+
+            delete_all_btn.classList.remove("d-none")
+
         });
 })
 

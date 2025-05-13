@@ -12,9 +12,39 @@
 
 <body>
 
-    <div class="container-fluid w-100 bg-dark text-light p-3 text-center">
-        <h1>My To-do list</h1>
+  <nav class="navbar navbar-expand-lg bg-dark text-light" data-bs-theme="dark">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="#">My To-do list</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse align-items-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html"><button class="btn btn-light">Home</button></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./login.html"><button class="btn btn-dark">Login</button></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./signup.html"><button class="btn btn-dark">SignUp</button></a>
+          </li>
+        </ul>
+
+        <h3 id="welcome" class="px-lg-5">
+            Welcome Guest
+        </h3>
+
+
+      </div>
+
+
+
     </div>
+  </nav>
 
     <div style="color: red;" class="container text-center p-3">
         <h3 style="height: 5vh;" id="err-msg"></h3>
@@ -45,6 +75,7 @@
 
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="./scripts/display_msg.js"></script>
 </body>
 
 </html>

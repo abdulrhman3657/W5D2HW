@@ -19,7 +19,7 @@ signup_btn.addEventListener("click", () => {
         localStorage.setItem("username", signup_username.value);
         localStorage.setItem("password", signup_password.value);
 
-        window.location.href = "../login.html"
+        window.location.href = "../index.html"
     }
 
 })

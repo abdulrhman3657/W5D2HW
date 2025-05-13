@@ -12,7 +12,7 @@ login_btn.addEventListener("click", () => {
 
     if (username === login_username.value && password === login_password.value) {
 
-        window.location.href = "../index.html";
+        window.location.href = "../main.html";
 
     } else {
         err_msg.innerText = "username or password does not exist";
